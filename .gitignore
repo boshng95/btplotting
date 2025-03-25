@@ -6,4 +6,5 @@ backtrader_plotting.egg-info
 /.idea
 /.pytest_cache
 /.tox
-/.venv
+/.venv/
+/btplotting.egg-info

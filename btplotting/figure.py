@@ -508,7 +508,7 @@ class Figure(CDSObject):
                     else:
                         raise Exception(
                             f'{u} for {marker} is not set but needs to be set')
-                glyph_fnc = getattr(self.figure, fnc_name)
+                glyph_fnc = getattr(self.figure, 'scatter')
                 # append renderer
                 self._figure_append_renderer(
                     glyph_fnc, marker=marker, **kwglyph)
