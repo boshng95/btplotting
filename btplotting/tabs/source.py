@@ -27,6 +27,7 @@ class SourceTab(BacktraderPlottingTab):
             [title,
              Div(text=self._getSource(),
                  css_classes=['source-pre'],
+                 styles={'white-space': 'pre-wrap'},
                  sizing_mode='stretch_width')],
             sizing_mode='stretch_width')
         return child, 'Source Code'
