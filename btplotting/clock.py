@@ -268,7 +268,7 @@ class DataClockHandler:
             else:
                 idx = self.get_idx(obj_clk.array, clk[i])
 
-                if obj_clk.array[idx] == clk[i]:
+                if idx < len(obj_clk) and obj_clk.array[idx] == clk[i]:
                     res['value'].append(line.array[idx])
                 else:
                     res['value'].append(float('nan'))

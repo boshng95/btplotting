@@ -921,14 +921,26 @@ class Figure(CDSObject):
         legend.label_text_color = self._scheme.legend_text_color
         legend.orientation = self._scheme.legend_orientation
 
+    def get_data_origin(self, current):
+        # To handle indicator data
+        while True:
+            try:
+                # Try accessing the "data" attribute
+                current = current.data
+            except AttributeError:
+                # If "owner" exists, return it; otherwise, return current
+                return getattr(current, 'owner', current)
+
     def set_cds(self, data_clock, startidx, endidx, dt_idx, int_idx) -> List[pd.DataFrame]:
         fillnan = self.fillnan()
         skipnan = self.skipnan()
 
         obj_clk = None
-        if len(data_clock) != len(self.master) and issubclass(type(self.master), bt.AbstractDataBase):
-            obj_clk = self.master.datetime
-
+        if len(data_clock) != len(self.master):
+            if issubclass(type(self.master), bt.AbstractDataBase):
+                obj_clk = self.master.datetime
+            else:
+                obj_clk = self.get_data_origin(self.master).datetime
         df_objs = []
         for obj in [self.master] + self.childs:
             df_data = data_clock.get_data(
